@@ -64,7 +64,7 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
 
 // jiggly goodness
 void matrix_scan_user(void) {
-    if (timer_elapsed32(jiggle_timer) > 1500) {  // fast enough to keep stuff green, slow enough to not be too obnoxious
+    if (timer_elapsed32(jiggle_timer) > 15000) {  // fast enough to keep stuff green, slow enough to not be too obnoxious
 		jiggle_timer = timer_read32(); // resets timer
 		tap_code(KC_MS_U);
 		tap_code(KC_MS_D);
