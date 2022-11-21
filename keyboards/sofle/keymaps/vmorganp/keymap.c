@@ -190,9 +190,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // right encoder
             } else if (index == 1) {
                 if (clockwise) {
-                    tap_code(KC_DOWN);
+                    tap_code(KC_WH_D);
                 } else {
-                    tap_code(KC_UP);
+                    tap_code(KC_WH_U);
                 }
             }
             break;
@@ -207,9 +207,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
                 // left encoder
             } else if (index == 0) {
                 if (clockwise) {
-                    tap_code(KC_DOWN);
+                    tap_code(KC_WH_D);
                 } else {
-                    tap_code(KC_UP);
+                    tap_code(KC_WH_U);
                 }
             }
             break;
