@@ -48,10 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYM] = LAYOUT(
     _______, _______,  _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-    _______, _______,  _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ KC_PLUS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, _______,
-    _______, _______,  _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ KC_DQT,  KC_QUOT, KC_LBRC, KC_RBRC, KC_BSLS, _______,
-    _______, _______,  _______, _______, _______, _______, _______,     _______, KC_UNDS, KC_MINS, KC_LPRN, KC_RPRN, _______, _______,
-    _______, _______,  _______, _______, _______, _______, MO(_ADJ),    _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______
+    _______, _______,  KC_7,    KC_8,    KC_9,    _______, /*&&&&&&     &&&&&&*/ KC_PLUS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, _______,
+    _______, _______,  KC_4,    KC_5,    KC_6,    _______, /*&&&&&&     &&&&&&*/ KC_DQT,  KC_QUOT, KC_LBRC, KC_RBRC, KC_BSLS, _______,
+    _______, _______,  KC_1,    KC_2,    KC_3,    _______, _______,     _______, KC_UNDS, KC_MINS, KC_LPRN, KC_RPRN, _______, _______,
+    _______, _______,  KC_0,    _______, _______, _______, MO(_ADJ),    _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______
   ),
 
   [_ADJ] = LAYOUT(
@@ -123,6 +123,10 @@ void matrix_scan_user(void) {
     // passwords
         // work (Password work)
         SEQ_TWO_KEYS(KC_P, KC_W) {
+            SEND_STRING("fake");
+        }
+        // work (password, username)
+        SEQ_TWO_KEYS(KC_P, KC_U) {
             SEND_STRING("fake");
         }
         // bitwarden (Password Manager)
