@@ -2,6 +2,7 @@
 
 enum layers {
     _OSX,
+    _OSXCMK,
     _WIN,
     _GAME,
     _NAV,
@@ -20,6 +21,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,   LCTL_T(KC_A), LGUI_T(KC_S), LSFT_T(KC_D), LOPT_T(KC_F), KC_G,   /*&&&&&&     &&&&&&*/  KC_H,       LOPT_T(KC_J), LSFT_T(KC_K), LGUI_T(KC_L), LCTL_T(KC_SCLN), KC_ENT,
     KC_LSFT,  KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,   KC_BSPC,     KC_MPLY,  KC_N,       KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
     KC_LCTL,  G(S(KC_M)),   _______,      _______,      KC_LGUI,      KC_SPC, MO(_NAV),    MO(_SYM), KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,   KC_CAPS,      _______,         _______
+  ),
+
+  [_OSXCMK] = LAYOUT(
+    KC_GRV,   KC_1,         KC_2,         KC_3,         KC_4,         KC_5,   /*&&&&&&     &&&&&&*/  KC_6,       KC_7,         KC_8,         KC_9,         KC_0,         KC_BSPC,
+    KC_TAB,   KC_Q,         KC_W,         KC_F,         KC_P,         KC_B,   /*&&&&&&     &&&&&&*/  KC_J,       KC_L,         KC_U,         KC_Y,         KC_SCLN,      C(S(G(KC_4))),
+    KC_ESC,   LCTL_T(KC_A), LGUI_T(KC_R), LSFT_T(KC_S), LOPT_T(KC_T), KC_G,   /*&&&&&&     &&&&&&*/  KC_M,       LOPT_T(KC_N), LSFT_T(KC_E), LGUI_T(KC_I), LCTL_T(KC_O), KC_ENT,
+    KC_LSFT,  KC_Z,         KC_X,         KC_C,         KC_D,         KC_V,   KC_BSPC,     KC_MPLY,  KC_K,       KC_H,         KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT,
+    KC_LCTL,  G(S(KC_M)),   _______,      _______,      KC_LGUI,      KC_SPC, MO(_NAV),    MO(_SYM), KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,   KC_CAPS,      _______,      _______
   ),
 
   [_WIN] = LAYOUT(
@@ -55,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJ] = LAYOUT(
-    _______, _______,  _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
-    _______, _______,  _______, _______, DM_REC1, _______, /*&&&&&&     &&&&&&*/ KC_VOLU, _______, _______, _______, DM_PLY1, _______,
-    _______, _______,  DM_RSTP, _______, _______, _______, /*&&&&&&     &&&&&&*/ KC_VOLD, _______, _______, _______, _______, _______,
-    _______, _______,  _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
-    _______, _______,  _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______
+    _______, _______,  _______, _______,     _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
+    _______, DF(_OSX), _______, _______,     DM_REC1, _______, /*&&&&&&     &&&&&&*/ KC_VOLU, _______, _______, _______, DM_PLY1, _______,
+    _______, _______,  DM_RSTP, _______,     _______, _______, /*&&&&&&     &&&&&&*/ KC_VOLD, _______, _______, _______, _______, _______,
+    _______, _______,  _______, DF(_OSXCMK), _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
+    _______, _______,  _______, _______,     _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______
   )
 };
 
