@@ -114,7 +114,7 @@ static void render_game_icon(void) {
 }
 
 static void print_status_narrow(void) {
-    switch (biton32(default_layer_state)) {
+    switch (biton32(layer_state)) {
         case _OSX:
             render_apl_icon();
             break;
@@ -125,37 +125,16 @@ static void print_status_narrow(void) {
             render_game_icon();
             break;
         case _NAV:
-            oled_write_P(PSTR("NAV"), false);
+            oled_write_P(PSTR("NAV\n"), false);
             break;
         case _ADJ:
-            oled_write_P(PSTR("ADJ"), false);
+            oled_write_P(PSTR("ADJ\n"), false);
             break;
         case _SYM:
-            oled_write_P(PSTR("SYM"), false);
+            oled_write_P(PSTR("SYM\n"), false);
             break;
         default:
-            oled_write_P(PSTR("Undef"), false);
-    }
-    oled_write_P(PSTR("\n\n"), false);
-    // Print current layer
-    oled_write_ln_P(PSTR("LAYER"), false);
-    switch (get_highest_layer(layer_state)) {
-        case _OSX:
-        case _WIN:
-        case _GAME:
-            oled_write_P(PSTR("Base\n"), false);
-            break;
-        case _NAV:
-            oled_write_P(PSTR("Nav\n"), false);
-            break;
-        case _SYM:
-            oled_write_P(PSTR("Sym\n"), false);
-            break;
-        case _ADJ:
-            oled_write_P(PSTR("Adj\n"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_P(PSTR("Undef\n"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
