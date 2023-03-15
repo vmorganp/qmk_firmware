@@ -221,7 +221,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     tap_code16(A(KC_P0));
                 }
                 else {
-                    tap_code16(G(S(KC_M)));
+                    tap_code16(C(S(KC_M)));
                 }
             }
             return false;
