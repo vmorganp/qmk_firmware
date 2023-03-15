@@ -184,46 +184,66 @@ bool oled_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case (EMAIL):
-            tap_code16(A(KC_P6)); 
+            if (record->event.pressed){
+                tap_code16(A(KC_P6)); 
+            }
             return false;
         case (CHAT):
-            tap_code16(A(KC_PDOT)); 
+            if (record->event.pressed){
+                tap_code16(A(KC_PDOT)); 
+            }
             return false;
         case (TEAMS):
-            tap_code16(A(KC_P1)); 
+            if (record->event.pressed){
+                tap_code16(A(KC_P1)); 
+            }
             return false;
         case (TERM):
-            tap_code16(A(KC_P3)); 
+            if (record->event.pressed){
+                tap_code16(A(KC_P3)); 
+            }
             return false;
         case (GHPRS):
-            tap_code16(A(KC_KP_ENTER)); 
+            if (record->event.pressed){
+                tap_code16(A(KC_KP_ENTER)); 
+            }
             return false;
         case (MUSIC):
-            tap_code16(A(KC_P2)); 
+            if (record->event.pressed){
+                tap_code16(A(KC_P2)); 
+            }
             return false;
         case (VSCDE):
             tap_code16(A(KC_P4)); 
             return false;
         case (BRWSR):
-            tap_code16(A(KC_P5));
+            if (record->event.pressed){
+                tap_code16(A(KC_P5));
+            }
             return false;
         case (OVRVW):
-            tap_code16(MEH(KC_F16));
+            if (record->event.pressed){
+                tap_code16(MEH(KC_F16));
+            }
             return false;
         case(SCRNS):
-            if (biton32(layer_state) == _OSX)  {
-                tap_code16(C(S(G(KC_4))));
-            }
-            else {
-                tap_code16(S(G(KC_S)));
+            if (record->event.pressed){
+                if (biton32(layer_state) == _OSX)  {
+                    tap_code16(C(S(G(KC_4))));
+                }
+                else {
+                    tap_code16(S(G(KC_S)));
+                }
             }
             return false;
         case(MUTE):
-            if (biton32(layer_state) == _GAME)  {
-                tap_code16(A(KC_P0));
-            }
-            else {
-                tap_code16(G(S(KC_M)));
+            if (record->event.pressed){
+                if (biton32(layer_state) == _GAME)  {
+                    tap_code16(A(KC_P0));
+                }
+                else {
+                    tap_code16(G(S(KC_M)));
+                }
             }
             return false;
         default:
