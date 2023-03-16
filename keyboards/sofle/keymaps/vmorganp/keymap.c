@@ -29,7 +29,6 @@ static uint32_t jiggle_timer      = 0;
 
 // bool that holds the current state on or off
 bool is_sponge_active = false;
-bool is_sponge_caps = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_WIN] = LAYOUT(
