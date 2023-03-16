@@ -20,12 +20,16 @@ enum custom_keycodes {
     EMAIL,
     OVRVW,
     MUTE,
-    SCRNS
+    SCRNS,
+    SPONGE
 };
 
 bool            mouse_jiggle_mode = true;
 static uint32_t jiggle_timer      = 0;
 
+// bool that holds the current state on or off
+bool is_sponge_active = false;
+bool is_sponge_caps = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_WIN] = LAYOUT(
@@ -71,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJ] = LAYOUT(
   _______, _______, _______, _______, _______, _______, /*&&&&&&    &&&&&&*/ _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, DM_PLY1, _______, /*&&&&&&    &&&&&&*/ KC_VOLU, _______, _______, _______, _______, _______,
-  _______, _______, DM_REC1, DM_RSTP, _______, _______, /*&&&&&&    &&&&&&*/ KC_VOLD, _______, _______, _______, _______, _______,
+  _______, SPONGE,  DM_REC1, DM_RSTP, _______, _______, /*&&&&&&    &&&&&&*/ KC_VOLD, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______
 )
@@ -140,6 +144,7 @@ static void print_status_narrow(void) {
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
     oled_write_ln_P(PSTR("JIGLE"), mouse_jiggle_mode);
+    oled_write_ln_P(PSTR("SPNGE"), is_sponge_active);
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -161,51 +166,66 @@ bool oled_task_user(void) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (is_sponge_active && record->event.pressed) {
+        tap_code(KC_CAPS_LOCK);
+    }
     switch (keycode) {
-        case (EMAIL):
+        case SPONGE:
+            if (record->event.pressed){
+                is_sponge_active = !is_sponge_active;
+                    // if turning off, also turn off caps lock
+                if (!is_sponge_active){
+                    if (host_keyboard_led_state().caps_lock){
+                        tap_code(KC_CAPS_LOCK);
+                    }
+                }
+            }
+            return false;
+
+        case EMAIL:
             if (record->event.pressed){
                 tap_code16(A(KC_P6)); 
             }
             return false;
-        case (CHAT):
+        case CHAT:
             if (record->event.pressed){
                 tap_code16(A(KC_PDOT)); 
             }
             return false;
-        case (TEAMS):
+        case TEAMS:
             if (record->event.pressed){
                 tap_code16(A(KC_P1)); 
             }
             return false;
-        case (TERM):
+        case TERM:
             if (record->event.pressed){
                 tap_code16(A(KC_P3)); 
             }
             return false;
-        case (GHPRS):
+        case GHPRS:
             if (record->event.pressed){
                 tap_code16(A(KC_KP_ENTER)); 
             }
             return false;
-        case (MUSIC):
+        case MUSIC:
             if (record->event.pressed){
                 tap_code16(A(KC_P2)); 
             }
             return false;
-        case (VSCDE):
+        case VSCDE:
             tap_code16(A(KC_P4)); 
             return false;
-        case (BRWSR):
+        case BRWSR:
             if (record->event.pressed){
                 tap_code16(A(KC_P5));
             }
             return false;
-        case (OVRVW):
+        case OVRVW:
             if (record->event.pressed){
                 tap_code16(MEH(KC_F16));
             }
             return false;
-        case(SCRNS):
+        case SCRNS:
             if (record->event.pressed){
                 if (biton32(layer_state) == _OSX)  {
                     tap_code16(C(S(G(KC_4))));
@@ -215,7 +235,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case(MUTE):
+        case MUTE:
             if (record->event.pressed){
                 if (biton32(layer_state) == _GAME)  {
                     tap_code16(A(KC_P0));
