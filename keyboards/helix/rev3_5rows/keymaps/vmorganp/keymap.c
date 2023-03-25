@@ -1,8 +1,8 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    _OSX,
     _WIN,
+    _OSX,
     _GAME,
     _NAV,
     _SYM,
@@ -27,42 +27,43 @@ bool            mouse_jiggle_mode = true;
 static uint32_t jiggle_timer      = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_OSX] = LAYOUT(
-            KC_GRV,   KC_1,         KC_2,         KC_3,         KC_4,         KC_5,   /*&&&&&&     &&&&&&*/  KC_6,       KC_7,         KC_8,         KC_9,         KC_0,         KC_BSPC,
-            KC_TAB,   KC_Q,         KC_W,         KC_F,         KC_P,         KC_B,   /*&&&&&&     &&&&&&*/  KC_J,       KC_L,         KC_U,         KC_Y,         KC_SCLN,      SCRNS,
-            KC_ESC,   LCTL_T(KC_A), LGUI_T(KC_R), LSFT_T(KC_S), LOPT_T(KC_T), KC_G,   /*&&&&&&     &&&&&&*/  KC_M,       LOPT_T(KC_N), LSFT_T(KC_E), LGUI_T(KC_I), LCTL_T(KC_O), KC_ENT,
-            KC_LSFT,  KC_Z,         KC_X,         KC_C,         KC_D,         KC_V,   KC_BSPC,     KC_MPLY,  KC_K,       KC_H,         KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT,
-            KC_LCTL,  MUTE,         _______,      _______,      KC_LGUI,      KC_SPC, MO(_NAV),    MO(_SYM), KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,   KC_CAPS,      _______,      _______
+    [_WIN] = LAYOUT(
+            KC_GRV,  KC_1,         KC_2,         KC_3,         KC_4,         KC_5,   /*&&&&&&     &&&&&&*/  KC_6,       KC_7,         KC_8,         KC_9,         KC_0,            KC_BSPC,
+            KC_TAB,  KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,   /*&&&&&&     &&&&&&*/  KC_Y,       KC_U,         KC_I,         KC_O,         KC_P,            SCRNS,
+            KC_ESC,  LCTL_T(KC_A), LGUI_T(KC_S), LSFT_T(KC_D), LOPT_T(KC_F), KC_G,   /*&&&&&&     &&&&&&*/  KC_H,       LOPT_T(KC_J), LSFT_T(KC_K), LGUI_T(KC_L), LCTL_T(KC_SCLN), KC_ENT,
+            KC_LSFT, KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,   KC_BSPC,     KC_MPLY,  KC_N,       KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
+            KC_LCTL, MUTE,         _______,      KC_LGUI,      KC_LCTL,      KC_SPC, MO(_NAV),    MO(_SYM), KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,   KC_CAPS,      _______,         _______
             ),
 
-    [_WIN] = LAYOUT(
+    [_OSX] = LAYOUT(
             _______, _______, _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
             _______, _______, _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
             _______, _______, _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
             _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
-            _______, _______, _______, KC_LGUI, KC_LCTL, _______, _______,     _______, _______, _______, _______, _______, _______, _______
+            _______, _______, _______, KC_LCTL, KC_LGUI, _______, _______,     _______, _______, _______, _______, _______, _______, _______
             ),
 
     [_GAME] = LAYOUT(
-            KC_GRV,  KC_1, KC_2,    KC_3,    KC_4,    KC_5,   /*&&&&&&     &&&&&&*/  KC_6,       KC_7,         KC_8,         KC_9,         KC_0,            KC_BSPC,
-            KC_TAB,  KC_Q, KC_W,    KC_E,    KC_R,    KC_T,   /*&&&&&&     &&&&&&*/  KC_Y,       KC_U,         KC_I,         KC_O,         KC_P,            SCRNS,
-            KC_ESC,  KC_A, KC_S,    KC_D,    KC_F,    KC_G,   /*&&&&&&     &&&&&&*/  KC_H,       LOPT_T(KC_J), LSFT_T(KC_K), LGUI_T(KC_L), LCTL_T(KC_SCLN), KC_ENT,
-            KC_LSFT, KC_Z, KC_X,    KC_C,    KC_V,    KC_B,   KC_BSPC,     KC_MPLY,  KC_N,       KC_M,         KC_COMM,      KC_DOT,       KC_SLSH,         KC_RSFT,
-            KC_LCTL, MUTE, _______, KC_LALT, KC_SPC,  KC_SPC, MO(_NAV),    MO(_SYM), KC_MS_BTN1, KC_MS_BTN3,   KC_MS_BTN2,   KC_CAPS,      _______,         _______ 
-            ),
+        _______, _______, _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
+        _______, KC_A,    KC_S,    KC_D,    KC_F,    _______, /*&&&&&&     &&&&&&*/ _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, KC_LALT, KC_SPC,  _______, _______,     _______, _______, _______, _______, _______, _______, _______
+    ),
+
 
     [_NAV] = LAYOUT(
-            _______, KC_F1,    KC_F2,    KC_F3,     KC_F4,   KC_F5,   /*&&&&&&     &&&&&&*/  KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
-            _______, _______,  _______,  _______,   KC_LEAD, TERM,    /*&&&&&&     &&&&&&*/  _______, _______,  _______, _______, _______, KC_F12,
-            _______, _______,  CHAT,     DISC,      BROWS,   GHPRS,   /*&&&&&&     &&&&&&*/  KC_LEFT, KC_DOWN,  KC_UP,   KC_RGHT, _______, _______,
-            _______, TO(_OSX), TO(_WIN), TO(_GAME), CODE,    _______, KC_DEL,      _______,  _______, MUSIC,    _______, _______, _______, _______,
-            _______, _______,  _______,  _______,   _______, OVRVW,   _______,     MO(_ADJ), _______, _______,  _______, _______, _______, _______
+            _______, KC_F1,    KC_F2,    KC_F3,     KC_F4,   KC_F5, /*&&&&&&     &&&&&&*/  KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
+            _______, _______,  _______,  _______,   QK_LEAD, TERM,  /*&&&&&&     &&&&&&*/  _______, _______,  _______, _______, _______, KC_F12,
+            _______, _______,  CHAT,     DISC,      KC_BSPC, GHPRS, /*&&&&&&     &&&&&&*/  KC_LEFT, KC_DOWN,  KC_UP,   KC_RGHT, _______, _______,
+            _______, TO(_OSX), TO(_WIN), TO(_GAME), CODE,    BROWS, KC_DEL,      _______,  _______, MUSIC,    _______, _______, _______, _______,
+            _______, _______,  _______,  _______,   _______, OVRVW, _______,     MO(_ADJ), _______, _______,  _______, _______, _______, _______
             ),
 
     [_SYM] = LAYOUT(
             _______, _______,  _______, _______,  _______,  _______, /*&&&&&&     &&&&&&*/ KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
             _______, _______,  _______, _______,  _______,  _______, /*&&&&&&     &&&&&&*/ KC_PLUS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE, _______,
-            _______, _______,  _______, _______,  _______,  _______, /*&&&&&&     &&&&&&*/ KC_DQT,  KC_QUOT, KC_LBRC, KC_RBRC, KC_BSLS, _______,
+            _______, _______,  _______, _______,  KC_DEL,   _______, /*&&&&&&     &&&&&&*/ KC_DQT,  KC_QUOT, KC_LBRC, KC_RBRC, KC_BSLS, _______,
             _______, _______,  _______, _______,  _______,  _______, _______,     _______, KC_UNDS, KC_MINS, KC_LPRN, KC_RPRN, _______, _______,
             _______, _______,  _______, _______,  _______,  _______, MO(_ADJ),    _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______
             ),
@@ -75,6 +76,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______
             )
 };
+
+
+
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_L)) {
+        if (biton32(layer_state) == _OSX){
+            tap_code16(G(C(KC_Q)));
+        }
+        else{
+            tap_code16(G(KC_L));
+        }
+    } else if (leader_sequence_two_keys(KC_P, KC_W)) {
+        SEND_STRING("fake");
+    } else if (leader_sequence_two_keys(KC_P, KC_U)) {
+        SEND_STRING("fake");
+    } else if (leader_sequence_two_keys(KC_P, KC_M)) {
+        SEND_STRING("fake");
+    } else if (leader_sequence_two_keys(KC_P, KC_E)) {
+        SEND_STRING("fake");
+    } else if (leader_sequence_two_keys(KC_O, KC_O)) {
+        tap_code16(A(KC_P7));
+    }
+}
 
 // disable jiggles if not on osx
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -89,9 +113,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-LEADER_EXTERNS();
-// fancy QMK stuff
-// leader dict, JIGGLER, stuff like that
 void matrix_scan_user(void) {
     // jiggler stuff
     if (timer_elapsed32(jiggle_timer) > 9000) {  // 9 seconds
@@ -100,61 +121,6 @@ void matrix_scan_user(void) {
             tap_code(KC_MS_U);
             tap_code(KC_MS_D);
         }  // tap if enabled
-    }
-
-    // leader key
-    LEADER_DICTIONARY() {
-        leading = false;
-        leader_end();
-        // switch hands at some point in the future
-        // maybe???
-
-        // general stuff
-        // jiggler
-        SEQ_ONE_KEY(KC_J) {
-            mouse_jiggle_mode ^= true;
-        }
-
-        // lock
-        SEQ_ONE_KEY(KC_L) {
-            if (biton32(layer_state) == _OSX){
-                tap_code16(G(C(KC_Q)));
-            }
-            else{
-                tap_code16(G(KC_L));
-            }
-        }
-
-        // passwords
-        // work (Password work)
-        SEQ_TWO_KEYS(KC_P, KC_W) {
-            SEND_STRING("fake");
-        }
-        // work (password, username)
-        SEQ_TWO_KEYS(KC_P, KC_U) {
-            SEND_STRING("fake");
-        }
-
-        // bitwarden (Password Manager)
-        SEQ_TWO_KEYS(KC_P, KC_M) {
-            SEND_STRING("fake");
-        }
-
-        // personal email
-        SEQ_TWO_KEYS(KC_P, KC_E) {
-            SEND_STRING("fake");
-        }
-
-        // email
-        SEQ_TWO_KEYS(KC_O, KC_E) {
-            tap_code16(A(KC_P6));
-        }
-
-        // obsidian
-        SEQ_TWO_KEYS(KC_O, KC_O) {
-            tap_code16(A(KC_P7));
-        }
-
     }
 }
 
