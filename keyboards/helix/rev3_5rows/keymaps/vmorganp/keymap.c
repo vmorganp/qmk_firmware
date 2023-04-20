@@ -1,26 +1,6 @@
+// qmk flash -kb helix/rev3_5rows -km vmorganp -bl dfu
 #include QMK_KEYBOARD_H
-
-enum layers {
-    _WIN,
-    _OSX,
-    _GAME,
-    _NAV,
-    _SYM,
-    _ADJ
-};
-
-enum my_keycodes {
-    MUSIC = SAFE_RANGE,
-    TERM,
-    BROWS,
-    GHPRS,
-    CODE,
-    DISC,
-    CHAT,
-    MUTE,
-    SCRNS,
-    OVRVW
-};
+#include "vmorganp.h"
 
 // Jiggle stuff
 bool            mouse_jiggle_mode = true;
@@ -54,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT(
             _______, KC_F1,    KC_F2,    KC_F3,     KC_F4,   KC_F5, /*&&&&&&     &&&&&&*/  KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,
             _______, _______,  _______,  _______,   QK_LEAD, TERM,  /*&&&&&&     &&&&&&*/  _______, _______,  _______, _______, _______, KC_F12,
-            _______, _______,  CHAT,     DISC,      KC_BSPC, GHPRS, /*&&&&&&     &&&&&&*/  KC_LEFT, KC_DOWN,  KC_UP,   KC_RGHT, _______, _______,
+            _______, _______,  TEAMS,    DISC,      KC_BSPC, GHPRS, /*&&&&&&     &&&&&&*/  KC_LEFT, KC_DOWN,  KC_UP,   KC_RGHT, _______, _______,
             _______, TO(_OSX), TO(_WIN), TO(_GAME), CODE,    BROWS, KC_DEL,      _______,  _______, MUSIC,    _______, _______, _______, _______,
             _______, _______,  _______,  _______,   _______, OVRVW, _______,     MO(_ADJ), _______, _______,  _______, _______, _______, _______
     ),
@@ -75,29 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______
     )
 };
-
-
-
-void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_L)) {
-        if (biton32(layer_state) == _OSX){
-            tap_code16(G(C(KC_Q)));
-        }
-        else{
-            tap_code16(G(KC_L));
-        }
-    } else if (leader_sequence_two_keys(KC_P, KC_W)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_P, KC_U)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_P, KC_M)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_P, KC_E)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_O, KC_O)) {
-        tap_code16(A(KC_P7));
-    }
-}
 
 // disable jiggles if not on osx
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -123,78 +80,3 @@ void matrix_scan_user(void) {
     }
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case MUSIC:
-            if (record->event.pressed){
-                tap_code16(A(KC_P2));
-            }
-            return false;
-
-        case TERM:
-                if (record->event.pressed){
-                    tap_code16(A(KC_P3));
-                }
-            return false;
-
-        case BROWS:
-                if (record->event.pressed){
-                    tap_code16(A(KC_P5));
-                }
-            return false;
-
-        case GHPRS:
-                if (record->event.pressed){
-                    tap_code16(A(KC_PENT));
-                }
-            return false;
-
-        case CODE:
-                if (record->event.pressed){
-                    tap_code16(A(KC_P4));
-                }
-            return false;
-
-        case DISC:
-                if (record->event.pressed){
-                    tap_code16(A(KC_PDOT));
-                }
-            return false;
-
-        case CHAT:
-                if (record->event.pressed){
-                    tap_code16(A(KC_P1));
-                }
-            return false;
-
-        case MUTE:
-            if (record->event.pressed){
-                if (biton32(layer_state) == _GAME)  {
-                    tap_code16(A(KC_P0));
-                }
-                else {
-                    tap_code16(C(S(KC_M)));
-                }
-            }
-            return false;
-
-        case SCRNS:
-                if (record->event.pressed){
-                    if (biton32(layer_state) == _OSX){
-                        tap_code16(C(S(G(KC_4))));
-                    } else {
-                        tap_code16(S(G(KC_S)));
-                    }
-                }
-            return false;
-
-        case OVRVW:
-                if (record->event.pressed){
-                    tap_code16(MEH(KC_F16));
-                }
-            return false;
-
-        default:
-            return true; // Process all other keycodes normally
-    }
-}

@@ -1,27 +1,8 @@
 #include QMK_KEYBOARD_H
-
-enum sofle_layers {
-    _WIN,
-    _OSX,
-    _GAME,
-    _SYM,
-    _NAV,
-    _ADJ
-};
+#include "vmorganp.h"
 
 enum custom_keycodes {
-    CHAT = SAFE_RANGE,
-    TEAMS,
-    TERM,
-    GHPRS,
-    MUSIC,
-    VSCDE,
-    BRWSR,
-    EMAIL,
-    OVRVW,
-    MUTE,
-    SCRNS,
-    SPONGE
+    SPONGE = NEW_SAFE_RANGE,
 };
 
 bool            mouse_jiggle_mode = true;
@@ -65,9 +46,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT(
   _______, KC_F1,    KC_F2,    KC_F3,     KC_F4,   KC_F5, /*&&&&&&    &&&&&&*/  KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  _______, _______,  _______,   EMAIL,    QK_LEAD, TERM,  /*&&&&&&    &&&&&&*/  _______, _______, _______, _______, _______, KC_F12,
-  _______, _______,  TEAMS,    CHAT,      KC_BSPC, GHPRS, /*&&&&&&    &&&&&&*/  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-  _______, TO(_OSX), TO(_WIN), TO(_GAME), VSCDE,   BRWSR, _______,    _______,  _______, MUSIC,   _______, _______, _______, _______,
+  _______, _______,  _______,  EMAIL,     QK_LEAD, TERM,  /*&&&&&&    &&&&&&*/  _______, _______, _______, _______, _______, KC_F12,
+  _______, _______,  TEAMS,    DISC,      KC_BSPC, GHPRS, /*&&&&&&    &&&&&&*/  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
+  _______, TO(_OSX), TO(_WIN), TO(_GAME), CODE,    BROWS, _______,    _______,  _______, MUSIC,   _______, _______, _______, _______,
                      _______,  _______,   _______, OVRVW, _______,    MO(_ADJ), _______, _______, _______, _______
 ),
 
@@ -164,7 +145,7 @@ bool oled_task_user(void) {
 
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     if (is_sponge_active && record->event.pressed) {
         tap_code(KC_CAPS_LOCK);
     }
@@ -177,70 +158,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     if (host_keyboard_led_state().caps_lock){
                         tap_code(KC_CAPS_LOCK);
                     }
-                }
-            }
-            return false;
-
-        case EMAIL:
-            if (record->event.pressed){
-                tap_code16(A(KC_P6)); 
-            }
-            return false;
-        case CHAT:
-            if (record->event.pressed){
-                tap_code16(A(KC_PDOT)); 
-            }
-            return false;
-        case TEAMS:
-            if (record->event.pressed){
-                tap_code16(A(KC_P1)); 
-            }
-            return false;
-        case TERM:
-            if (record->event.pressed){
-                tap_code16(A(KC_P3)); 
-            }
-            return false;
-        case GHPRS:
-            if (record->event.pressed){
-                tap_code16(A(KC_KP_ENTER)); 
-            }
-            return false;
-        case MUSIC:
-            if (record->event.pressed){
-                tap_code16(A(KC_P2)); 
-            }
-            return false;
-        case VSCDE:
-            tap_code16(A(KC_P4)); 
-            return false;
-        case BRWSR:
-            if (record->event.pressed){
-                tap_code16(A(KC_P5));
-            }
-            return false;
-        case OVRVW:
-            if (record->event.pressed){
-                tap_code16(MEH(KC_F16));
-            }
-            return false;
-        case SCRNS:
-            if (record->event.pressed){
-                if (biton32(layer_state) == _OSX)  {
-                    tap_code16(C(S(G(KC_4))));
-                }
-                else {
-                    tap_code16(S(G(KC_S)));
-                }
-            }
-            return false;
-        case MUTE:
-            if (record->event.pressed){
-                if (biton32(layer_state) == _GAME)  {
-                    tap_code16(A(KC_P0));
-                }
-                else {
-                    tap_code16(C(S(KC_M)));
                 }
             }
             return false;
@@ -304,27 +221,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
     }
     return state;
-}
-
-void leader_end_user(void) {
-    if (leader_sequence_one_key(KC_L)) {
-        if (biton32(layer_state) == _OSX){
-            tap_code16(G(C(KC_Q)));
-        }
-        else{
-            tap_code16(G(KC_L));
-        }
-    } else if (leader_sequence_two_keys(KC_P, KC_W)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_P, KC_U)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_P, KC_M)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_P, KC_E)) {
-        SEND_STRING("fake");
-    } else if (leader_sequence_two_keys(KC_O, KC_O)) {
-        tap_code16(A(KC_P7));
-    }
 }
 
 void matrix_scan_user(void) {
