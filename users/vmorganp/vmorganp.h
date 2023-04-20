@@ -33,7 +33,6 @@ enum userspace_keycodes {
 #define GHPRS LALT(KC_PENT)
 #define CODE LALT(KC_P4)
 #define DISC LALT(KC_PDOT)
-// #define MUTE LALT(KC_P0)
 #define OVRVW MEH(KC_F16)
 
 #endif

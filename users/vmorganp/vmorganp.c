@@ -1,28 +1,27 @@
 #include "vmorganp.h"
+#include "quantum.h"
 
 // allow for custom keymap in board still
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
+__attribute__((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+    return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode){
+    switch (keycode) {
         case SCRNS:
-                if (record->event.pressed){
-                    if (biton32(layer_state) == _OSX){
-                        tap_code16(C(S(G(KC_4))));
-                    } else {
-                        tap_code16(S(G(KC_S)));
-                    }
+            if (record->event.pressed) {
+                if (biton32(layer_state) == _OSX) {
+                    tap_code16(C(S(G(KC_4))));
+                } else {
+                    tap_code16(S(G(KC_S)));
                 }
+            }
             return false;
         case MUTE:
-            if (record->event.pressed){
-                if (biton32(layer_state) == _GAME)  {
+            if (record->event.pressed) {
+                if (biton32(layer_state) == _GAME) {
                     tap_code16(A(KC_P0));
-                }
-                else {
+                } else {
                     tap_code16(C(S(KC_M)));
                 }
             }
@@ -32,13 +31,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_L)) {
-        if (biton32(layer_state) == _OSX){
+        if (biton32(layer_state) == _OSX) {
             tap_code16(G(C(KC_Q)));
-        }
-        else{
+        } else {
             tap_code16(G(KC_L));
         }
     } else if (leader_sequence_two_keys(KC_P, KC_W)) {
