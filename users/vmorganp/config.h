@@ -6,6 +6,7 @@ for more options.
 */
 #undef TAPPING_TERM //un-define it
 #define TAPPING_TERM 250
+#define PERMISSIVE_HOLD
 #define LEADER_PER_KEY_TIMING
 #define LEADER_TIMEOUT 300
 #define IGNORE_MOD_TAP_INTERRUPT
