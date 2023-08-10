@@ -3,12 +3,35 @@
 
 #include QMK_KEYBOARD_H
 
+// this default keymap is garbage and I know that.
+// My keymap is so jank that I didn't want to impose all of it on the community
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   /*&&&&&&  &&&&&&*/ KC_6,       KC_7,       KC_8,       KC_9,    KC_0,    KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   /*&&&&&&  &&&&&&*/ KC_Y,       KC_U,       KC_I,       KC_O,    KC_P,    _______,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   /*&&&&&&  &&&&&&*/ KC_H,       KC_J,       KC_K,       KC_L,    KC_SCLN, KC_ENT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   _______,  _______, KC_N,       KC_M,       KC_COMM,    KC_DOT,  KC_SLSH, KC_RSFT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,       KC_M,       KC_COMM,    KC_DOT,  KC_SLSH, KC_RSFT,
         KC_LCTL, _______, _______, KC_LGUI, KC_LCTL, KC_SPC, _______,  _______, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, KC_CAPS, _______, _______
     )
 };
+
+#ifdef ENCODER_ENABLE
+
+bool encoder_update_kb(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        if (clockwise) {
+            tap_code(KC_VOLD);
+        } else {
+            tap_code(KC_VOLU);
+        }
+    } else if (index == 1) {
+        if (clockwise) {
+            tap_code(KC_PGDN);
+        } else {
+            tap_code(KC_PGUP);
+        }
+    }
+    return true;
+}
+
+#endif
