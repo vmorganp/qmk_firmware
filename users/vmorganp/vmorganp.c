@@ -50,6 +50,9 @@ void leader_end_user(void) {
     } else if (leader_sequence_two_keys(KC_P, KC_E)) {
         // email
         SEND_STRING("fake");
+    } else if (leader_sequence_two_keys(KC_P, KC_D)) {
+        // da us
+        SEND_STRING("fake");
     } else if (leader_sequence_two_keys(KC_O, KC_O)) {
         // open obsidian
         tap_code16(A(KC_P7));

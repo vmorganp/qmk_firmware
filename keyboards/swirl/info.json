@@ -5,6 +5,7 @@
     "processor": "RP2040",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
+    "debounce": 10,
     "encoder": {
         "rotary": [
             {"pin_a": "D1", "pin_b": "B5", "resolution": 3}
