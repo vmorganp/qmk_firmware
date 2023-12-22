@@ -205,7 +205,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             }
             break;
     }
-    return true;
+    return false;
 }
 
 #endif
@@ -230,7 +230,7 @@ void matrix_scan_user(void) {
         if (mouse_jiggle_mode) {
             tap_code(KC_MS_U);
             tap_code(KC_MS_D);
-        } 
+        }
     }
 }
 
