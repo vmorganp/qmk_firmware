@@ -7,7 +7,7 @@
 #include "action.h"
 #include "version.h"
 
-enum userspace_layers { _WIN, _OSX, _GAME, _NAV, _SYM, _ADJ };
+enum userspace_layers { _WIN, _OSX, _GAME, _RAW, _NAV, _SYM, _ADJ };
 
 enum userspace_keycodes {
     MUSIC = SAFE_RANGE,
